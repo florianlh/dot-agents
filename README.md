@@ -6,7 +6,7 @@ Made public to ease auth issues with private submodules in CI or agent VMs, not 
 ## What's Inside
 
 - **`skills/`** — [obra/superpowers](https://github.com/obra/superpowers) agent skills, installed with `npx skills` using the `--copy` option (copied rather than symlinked so files are self-contained and tracked cleanly in Git).
-- **Web project bootstrap notes** — Vite MPA, MDX content hub, and web tech stack notes (written in `babylonjs-lab/dev/notes/`).
+- **Web project bootstrap notes** — Vite MPA, MDX content hub, and web tech stack notes.
 
 ## Usage in Projects
 
