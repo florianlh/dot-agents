@@ -28,7 +28,7 @@ Initialize in an existing clone:
 git submodule update --init --recursive
 ```
 
-> **Note:** `git submodule update --init` checks out the submodule in a detached `HEAD` initially. If you plan to make commits directly inside `.agents/`, run `git -C .agents switch main` first so subsequent `update = rebase` runs stay on `main`.
+> **Note (Detached `HEAD` on fresh clones / agent VMs):** `git clone --recurse-submodules` and `git submodule update --init` always check out `.agents/` in a detached `HEAD` at the commit pinned by the parent repo. That is fine for read-only consumption, but in a fresh clone or agent VM—before editing, committing, or pushing changes directly inside `.agents/`—first check out `main` (e.g. `git -C .agents switch main && git -C .agents pull --ff-only`, or `git -C .agents checkout -B main origin/main` if behind) so changes aren't left on a detached `HEAD`.
 
 ## Updating
 
