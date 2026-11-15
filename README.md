@@ -15,10 +15,11 @@ Made public to ease auth issues with private submodules in CI or agent VMs, not 
 
 ## Usage in Projects
 
-Add as a submodule (from another repo under the same GitHub owner):
+Add as a submodule tracking `main` with `update = rebase` (from another repo under the same GitHub owner):
 
 ```bash
-git submodule add ../dot-agents.git .agents
+git submodule add -b main ../dot-agents.git .agents
+git config -f .gitmodules submodule..agents.update rebase
 ```
 
 Initialize in an existing clone:
@@ -26,6 +27,8 @@ Initialize in an existing clone:
 ```bash
 git submodule update --init --recursive
 ```
+
+> **Note:** `git submodule update --init` checks out the submodule in a detached `HEAD` initially. If you plan to make commits directly inside `.agents/`, run `git -C .agents switch main` first so subsequent `update = rebase` runs stay on `main`.
 
 ## Updating
 
@@ -42,8 +45,12 @@ git push
 
 ### Pulling updates into a consuming project
 
+With `branch = main` and `update = rebase` in `.gitmodules`, pull the latest `origin/main` (rebasing any local submodule commits) and commit the updated submodule pointer in the consuming repo:
+
 ```bash
 git submodule update --remote .agents
 git add .agents
 git commit -m "chore: update .agents submodule"
 ```
+
+*(Note: plain `git submodule update` without `--remote` rebases onto the commit pinned by the parent repo, not `origin/main`, and `update = rebase` assumes `dot-agents` `main` history is not force-pushed.)*
