@@ -1,10 +1,3 @@
-# Bootstrap Any Project (General Purpose + Interactive Stack Setup)
-
-Use this when starting a non-MPA project (or when you aren't sure yet whether you want a web app, CLI, Python script, API, or library).
-
-## Prompt
-
-```text
 Let's initialize this repository with `.agents/` and design the project together:
 
 1. Attach `https://github.com/florianlh/dot-agents.git` as a Git submodule at `.agents/` tracking `main` with `update = rebase` (`git submodule add -b main https://github.com/florianlh/dot-agents.git .agents` and `git config -f .gitmodules submodule..agents.update rebase`).
@@ -14,4 +7,3 @@ Let's initialize this repository with `.agents/` and design the project together
    - What the first minimal working version (MVP) should do.
 3. If we choose a multi-page web app/toolkit, follow the architecture in `.agents/dev/notes/web-project-bootstrap.md`; otherwise propose a clean, minimal folder layout and tech stack.
 4. Scaffold the initial project, add a concise `AGENTS.md` documenting commands, conventions, and verification steps, implement the first working feature with tests, run all checks, and commit.
-```

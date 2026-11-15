@@ -1,10 +1,3 @@
-# Bootstrap a Multi-Page Web Lab (Direct / Fill-in-the-Blank)
-
-Use this when you already know the project name and first tool you want built immediately without a Q&A round. Replace the bracketed placeholders before pasting.
-
-## Prompt
-
-```text
 Bootstrap this repository as a Vite MPA + MDX + Per-Page PWA web lab:
 
 - Project name & purpose: [PROJECT_NAME — e.g., "Finance & Math Toolkit for everyday calculators"]
@@ -17,4 +10,3 @@ Steps:
 3. Scaffold the repo (`package.json`, `tsconfig.json`, `vite.config.ts`, `.gitignore`, `AGENTS.md`, `dev/notes/standalone-cdn-dependencies.md`, `scripts/build-deploy.mjs`, `scripts/pwa/*`, `src/hub/App.tsx`, `src/shared/*`, and `tests/`).
 4. Implement the first page under `src/pages/<slug>/` with `content/PAGE.md`, `content/SUMMARY.md`, polished UI, unit tests for pure logic, and wire it into `src/hub/App.tsx`.
 5. Verify with `npm run typecheck`, `npm test`, `npm run build`, and `npm run build:offline`, then commit cleanly.
-```

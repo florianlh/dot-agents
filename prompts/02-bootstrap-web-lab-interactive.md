@@ -1,10 +1,3 @@
-# Bootstrap a Multi-Page Web Lab (Interactive Q&A)
-
-**Recommended starter for friends & family.** Paste this into an empty repo in Antigravity Cloud. The agent will attach `dot-agents`, read the bootstrap architecture docs, ask a couple of quick questions about what you want to build, and scaffold the whole app.
-
-## Prompt
-
-```text
 Let's bootstrap this repository as a multi-page web lab using the shared `.agents` setup:
 
 1. Attach `https://github.com/florianlh/dot-agents.git` as a Git submodule at `.agents/` tracking `main` with `update = rebase`:
@@ -16,4 +9,3 @@ Let's bootstrap this repository as a multi-page web lab using the shared `.agent
    - Whether I want any optional libraries from `.agents/dev/notes/web-tech-stack.md` (e.g., 2D SVG/Canvas, 3D, charts, CodeMirror, spreadsheets/PDF).
 4. Once I answer, scaffold the full Vite MPA + Preact + Tailwind + MDX + Per-Page PWA project structure (including `AGENTS.md`, `dev/notes/standalone-cdn-dependencies.md`, `scripts/build-deploy.mjs`, `scripts/pwa/`, `src/hub/`, `src/shared/`, and my first `src/pages/<slug>/` app).
 5. Run `npm run typecheck`, `npm test`, `npm run build`, and `npm run build:offline` to verify everything passes, then commit the work and share how to preview and use it.
-```
