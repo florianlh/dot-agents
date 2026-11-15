@@ -12,13 +12,15 @@ Made public to ease auth issues with private submodules in CI or agent VMs, not 
   - [MDX, Content Conventions & Generic Hub](./dev/notes/mdx-and-content-hub.md)
   - [Web Tech Stack Recommendations](./dev/notes/web-tech-stack.md)
   - [Per-Page PWA Installs & Offline Caching](./dev/notes/per-page-pwa.md)
+- **[`prompts/`](./prompts/README.md)** — Reusable starter prompts and submodule snippets (including friend/family quickstart prompts for Antigravity Cloud).
+- **[`docs/`](./docs/index.html)** — Static GitHub Pages site (`Settings -> Pages -> Deploy from a branch -> main / docs`) with general documentation, prompt template customizer, and one-click copy buttons.
 
 ## Usage in Projects
 
-Add as a submodule tracking `main` with `update = rebase` (from another repo under the same GitHub owner):
+Add as a submodule tracking `main` with `update = rebase` (use `https://github.com/florianlh/dot-agents.git` from any GitHub account, or `../dot-agents.git` from another repo under `florianlh`):
 
 ```bash
-git submodule add -b main ../dot-agents.git .agents
+git submodule add -b main https://github.com/florianlh/dot-agents.git .agents
 git config -f .gitmodules submodule..agents.update rebase
 ```
 
