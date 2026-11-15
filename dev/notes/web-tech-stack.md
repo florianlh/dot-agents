@@ -1,8 +1,31 @@
 # Web Tech Stack Recommendations *(Optional)*
 
-Part of the [Web Project Bootstrap Guide](./web-project-bootstrap.md). See also [Vite MPA & Dual Build Setup](./vite-mpa-build.md) and [MDX, Content & Generic Hub](./mdx-and-content-hub.md).
+Part of the [Web Project Bootstrap Guide](./web-project-bootstrap.md). See also [Vite MPA & Dual Build Setup](./vite-mpa-build.md), [MDX, Content & Generic Hub](./mdx-and-content-hub.md), and [Per-Page PWA Installs & Offline Caching](./per-page-pwa.md).
 
-The base template only requires **Vite**, **Preact**, **TypeScript**, and **MDX** (`@mdx-js/rollup` + `remark-*`/`rehype-*` plugins). Depending on the project, add only what fits—keeping standalone single-file `.html` bundle size in mind.
+The base template only requires **Vite**, **Preact**, **TypeScript**, and **MDX** (`@mdx-js/rollup` + `remark-*`/`rehype-*` plugins). Depending on the project, add only what fits—keeping standalone single-file `.html` bundle size and module singleton constraints in mind.
+
+---
+
+## Case-by-Case JS Dependency Externalization Policy
+
+- **Do not blindly externalize JS libraries via Import Maps / CDNs.** Libraries with small footprints (e.g., `preact` + `@preact/signals` + `lucide-preact` ≈ `20–25 kB` minified) aren't worth the runtime fragility of module-singleton splits (for example, `preact` hooks `options.__h` breaking across compiled MDX, `@preact/signals`, and icon packages).
+- **CSS/fonts are already handled cleanly** by `standaloneStylesPlugin` in `vite.config.ts` (CDN `<link>` in `dist/downloads/*.html`, `.woff2`-only inline in `dist-offline/`).
+- **Decide JS externalization case by case**, balancing bundle impact vs. singleton/subpath complexity, and track every heavy dependency in a per-project `dev/notes/standalone-cdn-dependencies.md` file with:
+  1. Measured raw / minified footprint
+  2. Current status (`implemented`, `subpath-optimized`, `future-candidate`, `keep-bundled`)
+  3. Known gotchas & solutions (e.g., `@codemirror/state` single-instance `Facet` identity requiring `?external=@codemirror/state,@codemirror/view` on `esm.sh`, or collapsing `@babylonjs/core/<Subpath>` imports).
+
+### Template for `dev/notes/standalone-cdn-dependencies.md`
+
+```markdown
+# Standalone Bundles & Externalized Dependencies
+
+| Dependency | Footprint (Raw / Min) | Status | Strategy / Solutions & Gotchas |
+| :--- | :--- | :--- | :--- |
+| **`katex` CSS + fonts & `highlight.js` CSS** | `~1,463 KiB` | `implemented` | `standaloneStylesPlugin`: CDN `<link>` in `dist/downloads/`, `.woff2`-only inline in `dist-offline/`. |
+| **`preact`, `@preact/signals`, `lucide-preact`** | `~20–25 KiB` min | `keep-bundled` | Negligible footprint; avoids `options.__h` hook singleton mismatch across MDX + signals. |
+| **Heavy lib (e.g. `codemirror`)** | `...` | `future-candidate` | Document singleton/peer-external requirements before externalizing. |
+```
 
 ---
 
@@ -12,7 +35,7 @@ The base template only requires **Vite**, **Preact**, **TypeScript**, and **MDX*
 - **Suggested for all interactive projects:**
   - **`lucide-preact`** — Tree-shakeable SVG icons (only imported icons are bundled).
   - **`@preact/signals`** — Lightweight (~1.6 KB) fine-grained reactive state for interactive tools and shared controls.
-  - **CodeMirror 6 (`codemirror`, `@codemirror/view`, `@codemirror/state`, `@codemirror/lang-json`, `@codemirror/lang-yaml`, …)** — Modular, tree-shakeable editor for embedded JSON/YAML configs, shaders, or live text/code tools.
+  - **CodeMirror 6 (`codemirror`, `@codemirror/view`, `@codemirror/state`, `@codemirror/lang-json`, `@codemirror/lang-yaml`, …)** — Modular, tree-shakeable editor for embedded JSON/YAML configs, shaders, or live text/code tools *(note: if ever externalized via CDN/esm.sh, pin `?external=@codemirror/state,@codemirror/view` across all `@codemirror/*` packages so `Facet` identity is not duplicated)*.
 - **Alternatives (to propose if asked):**
   - **`daisyui` (v5):** Pure-CSS component classes and themes as a Tailwind v4 plugin (`@plugin "daisyui";`).
   - **`bootstrap` (v5):** Familiar grid, forms, tables, and components (prefer CSS-only or Sass partials + native `<dialog>`/`popover` to keep bundles light).
@@ -44,7 +67,8 @@ The base template only requires **Vite**, **Preact**, **TypeScript**, and **MDX*
 
 ## 3. 3D & WebGL / WebGPU *(optional)*
 
-- **Base 3D stack — Babylon.js (`@babylonjs/core`, optionally `@babylonjs/gui`, `@babylonjs/loaders`):** Full-featured TypeScript-first 3D engine with PBR materials, shadows, physics/gizmos, and WebGL/WebGPU support; import tree-shakeable subpaths so standalone `.html` exports stay as compact as possible.
+- **Base 3D stack — Babylon.js (`@babylonjs/core`, optionally `@babylonjs/gui`, `@babylonjs/loaders`):** Full-featured TypeScript-first 3D engine with PBR materials, shadows, physics/gizmos, and WebGL/WebGPU support.
+  - **`@babylonjs/core` bundle-size characteristic (`sideEffects: true`):** `@babylonjs/core/package.json` sets `"sideEffects": true`, and its barrel `index.js` registers shaders, loaders, and scene components globally. Standard barrel imports (`import { Engine, Scene } from "@babylonjs/core"`) pull **~5 MB minified** (`~6.6–7.5 MB` single-file). Treat this as an **expected characteristic** of Babylon.js rather than banning barrel imports (since Babylon docs/examples use barrels and 3D demos are rarely ultra-light single-file targets). When smaller single-file exports are needed, switching to `@babylonjs/core/<Subpath>` imports plus explicit `*SceneComponent` / `Culling/ray` side-effect imports cuts bundle size by **~50%**.
 - **Alternatives (to propose if asked):**
   - **`three` (+ `@types/three`):** Leaner modular WebGL/WebGPU core for focused 3D/shader experiments with a large ecosystem.
   - **`twgl.js` / `regl`:** Minimal WebGL wrappers for raw GLSL shader and GPGPU experiments without a full scene graph.
@@ -64,7 +88,7 @@ The base template only requires **Vite**, **Preact**, **TypeScript**, and **MDX*
 - **Alternatives:** `exceljs` (full workbook control: formulas, cell styles, borders, column widths, multi-sheet editing); SheetJS (`xlsx`, broad legacy `.xls`/`.ods` support—note npm `0.18.5` is frozen from 2022 and newer releases use SheetJS's CDN/commercial licensing).
 
 ### Word (`.docx`) & PowerPoint (`.pptx`)
-- **Base stack — `mammoth` (read `.docx` → HTML/Markdown), `docx` (write `.docx`), and `pptxgenjs` (write `.pptx`):** Clean client-side document extraction and generation without a server.
+- **Base stack — `mammoth` (read `.docx` -> HTML/Markdown), `docx` (write `.docx`), and `pptxgenjs` (write `.pptx`):** Clean client-side document extraction and generation without a server.
 - **Alternatives:** `docxtemplater` + `pizzip` (fill existing `.docx`/`.pptx` templates with structured JSON data).
 
 ### PDF
