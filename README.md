@@ -12,8 +12,8 @@ Made public to ease auth issues with private submodules in CI or agent VMs, not 
   - [MDX, Content Conventions & Generic Hub](./dev/notes/mdx-and-content-hub.md)
   - [Web Tech Stack Recommendations](./dev/notes/web-tech-stack.md)
   - [Per-Page PWA Installs & Offline Caching](./dev/notes/per-page-pwa.md)
-- **[`prompts/`](./prompts/README.md)** — Reusable starter prompts and submodule snippets (including friend/family quickstart prompts for Antigravity Cloud).
-- **[`docs/`](./docs/index.html)** — Static GitHub Pages site (`Settings -> Pages -> Deploy from a branch -> main / docs`) with general documentation, prompt template customizer, and one-click copy buttons.
+- **[`prompts/`](./prompts/README.md)** — Bare, directly usable starter prompts and submodule snippets (with usage notes in [`prompts/README.md`](./prompts/README.md)).
+- **[`docs/`](./docs/index.html)** — Static GitHub Pages site built via [`.github/workflows/pages.yml`](./.github/workflows/pages.yml) and [`scripts/build-pages.mjs`](./scripts/build-pages.mjs) (`Settings -> Pages -> Source: GitHub Actions`). Injects `prompts/*.md` as a single source of truth into `_site/prompts-data.json`; preview locally with `node scripts/build-pages.mjs` and a static server over `_site/`.
 
 ## Usage in Projects
 

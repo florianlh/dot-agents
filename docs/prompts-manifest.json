@@ -1,0 +1,56 @@
+[
+  {
+    "id": "web-lab-interactive",
+    "file": "02-bootstrap-web-lab-interactive.md",
+    "category": "starters",
+    "recommended": true,
+    "badge": "Recommended Starter",
+    "title": "Bootstrap Multi-Page Web Lab (Interactive Q&A)",
+    "description": "Best for friends & family starting an empty repo. Attaches .agents, reads the architecture notes, asks a couple of quick questions about your idea, and scaffolds the full app."
+  },
+  {
+    "id": "web-lab-direct",
+    "file": "03-bootstrap-web-lab-direct.md",
+    "category": "starters",
+    "recommended": false,
+    "badge": "Direct Build",
+    "title": "Bootstrap Multi-Page Web Lab (Direct Template)",
+    "description": "Skips the Q&A round and builds right away when you already know your project name and first tool."
+  },
+  {
+    "id": "general-project",
+    "file": "04-bootstrap-general-project.md",
+    "category": "starters",
+    "recommended": false,
+    "badge": "Any Stack",
+    "title": "Bootstrap Any Project (General Purpose + Interactive)",
+    "description": "For Python tools, CLIs, libraries, or when you want the agent to recommend the right project type and stack first."
+  },
+  {
+    "id": "add-mpa-page",
+    "file": "05-add-mpa-page-or-tool.md",
+    "category": "followups",
+    "recommended": false,
+    "badge": "Existing Web Lab",
+    "title": "Add a New Page / Tool to an Existing Web Lab",
+    "description": "Use inside a repo already bootstrapped with the Vite MPA + MDX + PWA setup to add another tool card and page."
+  },
+  {
+    "id": "attach-submodule",
+    "file": "01-attach-dot-agents-submodule.md",
+    "category": "snippets",
+    "recommended": false,
+    "badge": "Git Snippet",
+    "title": "Attach dot-agents Submodule Only",
+    "description": "Drops .agents/ into any new or existing repo tracking main with update = rebase, without changing project code."
+  },
+  {
+    "id": "update-submodule",
+    "file": "06-update-dot-agents-submodule.md",
+    "category": "snippets",
+    "recommended": false,
+    "badge": "Maintenance",
+    "title": "Update .agents Submodule to Latest main",
+    "description": "Pulls new skills or bootstrap note updates into an existing project and commits the updated submodule pointer."
+  }
+]
