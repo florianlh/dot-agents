@@ -6,10 +6,10 @@ All `prompts/*.md` files contain **only** the prompt text itself (no headings, w
 - Copy-paste the raw file contents directly into an AI chat, or
 - Reference them directly from a repository that already has `.agents/` attached (for example: *"Follow `.agents/prompts/05-add-mpa-page-or-tool.md` to add a new color-contrast tool"*).
 
-## Friend & Family Quickstart (Antigravity Cloud)
+## Quickstart (Cloud or Local AI Agent)
 
 1. Create an **empty repository** on GitHub (e.g. `my-tools-lab`).
-2. Start a new **Antigravity Cloud** project with that repository attached.
+2. Open it in your AI coding environment (e.g., attach it in Antigravity Cloud or open a local clone with Claude Code, Codex, Cursor, etc.).
 3. Copy one of the starter prompts below and paste it as your first message.
 
 ---

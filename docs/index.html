@@ -51,7 +51,8 @@
       <section id="quickstart" aria-labelledby="quickstart-heading">
         <h2 id="quickstart-heading" class="section-heading">3-Step New Project Quickstart</h2>
         <p class="section-subtitle">
-          Starting from scratch in Antigravity Cloud? No local setup required:
+          Starting from scratch with an AI coding assistant (e.g., Antigravity Cloud, Claude Code,
+          Codex, or Cursor)?
         </p>
 
         <div class="steps-grid">
@@ -66,10 +67,10 @@
 
           <article class="step-card">
             <span class="step-num">2</span>
-            <h3>Attach it in Antigravity Cloud</h3>
+            <h3>Open it in your AI coding tool</h3>
             <p>
-              Start a new project/conversation with that repository attached as a resource so the
-              agent can read, write, and push to it.
+              Open the repository in your agent environment (e.g., attach it in Antigravity Cloud
+              or clone it locally for your coding agent).
             </p>
           </article>
 
@@ -87,62 +88,73 @@
       <section id="prompts" aria-labelledby="prompts-heading">
         <h2 id="prompts-heading" class="section-heading">Copy-Pastable Prompts</h2>
         <p class="section-subtitle">
-          Optionally fill in your project details below to customize the prompt templates before
-          copying, or copy them as-is.
+          Copy any prompt directly, or expand the customizer to pre-fill project details before
+          copying.
         </p>
 
-        <div class="customizer-panel" aria-label="Optional prompt customizer">
-          <div class="customizer-header">
-            <div>
-              <h3 class="customizer-title">Customize Prompt Templates (Optional)</h3>
-              <p class="customizer-hint">
-                Leave fields blank to keep interactive questions or bracketed placeholders.
-              </p>
+        <details id="customizer-details" class="customizer-panel" aria-label="Optional prompt customizer">
+          <summary class="customizer-summary">
+            <span class="customizer-summary-left">
+              <span class="customizer-chevron" aria-hidden="true">&#9656;</span>
+              <span>
+                <span class="customizer-title">Customize Prompt Templates</span>
+                <span class="customizer-hint">
+                  Pre-fill project name, first tool, stack, or submodule URL
+                </span>
+              </span>
+            </span>
+            <span id="customizer-status" class="tag">Optional</span>
+          </summary>
+
+          <div class="customizer-body">
+            <div class="fields-grid">
+              <div class="field">
+                <label for="input-repo-url">Submodule URL</label>
+                <select id="input-repo-url">
+                  <option value="https://github.com/florianlh/dot-agents.git" selected>
+                    https://github.com/florianlh/dot-agents.git (Any GitHub user — Recommended)
+                  </option>
+                  <option value="../dot-agents.git">
+                    ../dot-agents.git (Sibling florianlh/* repo)
+                  </option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="input-project-name">Project name &amp; purpose</label>
+                <input
+                  id="input-project-name"
+                  type="text"
+                  placeholder="e.g. Everyday Math &amp; Finance Lab"
+                />
+              </div>
+
+              <div class="field">
+                <label for="input-first-tool">First tool / page / MVP idea</label>
+                <input
+                  id="input-first-tool"
+                  type="text"
+                  placeholder="e.g. Interactive mortgage &amp; compound interest calculator"
+                />
+              </div>
+
+              <div class="field">
+                <label for="input-extra-stack">Optional stack or library notes</label>
+                <input
+                  id="input-extra-stack"
+                  type="text"
+                  placeholder="e.g. SVG.js charts, pdf-lib export, or leave blank"
+                />
+              </div>
             </div>
-            <button type="button" id="btn-reset-fields" class="btn-secondary">Reset fields</button>
+
+            <div class="customizer-footer">
+              <button type="button" id="btn-reset-fields" class="btn-secondary">
+                Reset fields
+              </button>
+            </div>
           </div>
-
-          <div class="fields-grid">
-            <div class="field">
-              <label for="input-repo-url">Submodule URL</label>
-              <select id="input-repo-url">
-                <option value="https://github.com/florianlh/dot-agents.git" selected>
-                  https://github.com/florianlh/dot-agents.git (Any GitHub user — Recommended)
-                </option>
-                <option value="../dot-agents.git">
-                  ../dot-agents.git (Sibling florianlh/* repo)
-                </option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="input-project-name">Project name &amp; purpose</label>
-              <input
-                id="input-project-name"
-                type="text"
-                placeholder="e.g. Everyday Math &amp; Finance Lab"
-              />
-            </div>
-
-            <div class="field">
-              <label for="input-first-tool">First tool / page / MVP idea</label>
-              <input
-                id="input-first-tool"
-                type="text"
-                placeholder="e.g. Interactive mortgage &amp; compound interest calculator"
-              />
-            </div>
-
-            <div class="field">
-              <label for="input-extra-stack">Optional stack or library notes</label>
-              <input
-                id="input-extra-stack"
-                type="text"
-                placeholder="e.g. SVG.js charts, pdf-lib export, or leave blank"
-              />
-            </div>
-          </div>
-        </div>
+        </details>
 
         <div class="toolbar">
           <div class="filter-tabs" role="group" aria-label="Filter prompts by category">

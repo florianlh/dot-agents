@@ -6,6 +6,7 @@ const projectNameInput = document.getElementById("input-project-name");
 const firstToolInput = document.getElementById("input-first-tool");
 const extraStackInput = document.getElementById("input-extra-stack");
 const resetBtn = document.getElementById("btn-reset-fields");
+const customizerStatus = document.getElementById("customizer-status");
 const promptListEl = document.getElementById("prompt-list");
 const filterButtons = Array.from(document.querySelectorAll(".tab-btn"));
 
@@ -19,6 +20,17 @@ function getState() {
     firstTool: firstToolInput.value.trim(),
     extraStack: extraStackInput.value.trim(),
   };
+}
+
+function updateCustomizerStatus(state) {
+  if (!customizerStatus) return;
+  const isCustomized =
+    state.repoUrl !== DEFAULT_REPO_URL ||
+    state.projectName.length > 0 ||
+    state.firstTool.length > 0 ||
+    state.extraStack.length > 0;
+  customizerStatus.textContent = isCustomized ? "Customized" : "Optional";
+  customizerStatus.className = isCustomized ? "tag tag-recommended" : "tag";
 }
 
 function customizePromptText(item, state) {
@@ -102,6 +114,7 @@ async function copyText(text) {
 
 function renderPrompts() {
   const state = getState();
+  updateCustomizerStatus(state);
 
   for (const item of prompts) {
     let card = document.getElementById(`card-${item.id}`);
